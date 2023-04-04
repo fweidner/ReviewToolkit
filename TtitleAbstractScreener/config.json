@@ -1,0 +1,44 @@
+{
+    "scaling":1.3,
+    "input_file":"../Scraping/Results/2023-04-04_12-45_All-Clean.csv",
+    "tmp_file":"data_tmp.csv",
+    "browser":"C:/Program Files/Google/Chrome/Application/chrome.exe",
+    "delimiter":";",
+    "keys":
+    {
+        "url":"doi",
+        "title":"title",
+        "abstract":"abstract",
+        "year":"year",
+        "review_elements":
+            {
+                "population":"population",
+                "intervention":"intervention",
+                "comparison":"comparison",
+                "outcomes":"outcomes",
+                "context": "context",
+                "checklater":"checklater",
+                "include":"include"
+            },
+        "review_elements_desc":
+            {
+                "population":"Population:",
+                "intervention":"Intervention:",
+                "comparison":"Comparison:",
+                "outcomes":"Outcomes: ",
+                "context": "Context:",
+                "checklater":"Check later :)",
+                "include":"Include!"
+            }
+    },
+    "windowsize":
+    {
+        "width":"800",
+        "height":"640"
+    },
+    "searchTerm":"Feel through window:",
+    "percentage_of_items_to_export":"20",
+    "file_for_irr":"../Scraping/Final_selection_for_IRR.csv",
+    "filename_with_includes":"Includes.csv",
+    "filepath_with_includes":"../Results/Paper/"
+}
