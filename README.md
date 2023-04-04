@@ -9,6 +9,7 @@ Contains two main projects:
 
 (three day project, don't come at me pls)
 
+0. create a folder called Results in subdir "Scraping"
 1. update search terms
 2. ScrapeACM (just run) => provides a file in Results/IEEE (abstract not scraped - I was lazy)
 3. ScrapeIEEE (just run) => provides a file in Results/ACM (needs an IEEE api key)
