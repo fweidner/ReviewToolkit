@@ -204,7 +204,7 @@ def GetPapers(_useOnline = False, _useTextTerm = False):
     bUseOnlyTitle = False
 
     prefix1 = '.\Results\ACM'
-    prefix2 = 'Paper__'
+    prefix2 = 'ACM__Paper__'
 
     if _useTextTerm:
         searchTerms = '("Binocular Parallax" OR "Eye Dominance" OR "Dominant Eye" OR "Ocular Dominance" OR "Sighting Dominance") NOT animals NOT rats NOT monkeys NOT surgery NOT myopia NOT cortex NOT strabismus'  
