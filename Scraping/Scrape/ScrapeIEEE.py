@@ -7,6 +7,8 @@ import pprint as pp
 
 import ScrapeHelper
 
+
+
 def GetRecord(_item):
     title = _item['title']
     #print(title)
@@ -57,10 +59,13 @@ def GetQuery(_queryString):
 
     return query
 
-def GetResultsFromIEEExploreOnline(_yearFilter,  _searchtermFilename):
+def GetResultsFromIEEExploreOnline(_yearFilter, _queryTerm, _searchtermFilename):
 
-    print ("Building query string...")
-    queryString = ScrapeHelper.GetQueryTerm('IEEE', _searchtermFilename)
+    if _queryTerm == "":  
+        print ("Building query string...")
+        queryString = ScrapeHelper.GetQueryTerm('IEEE', _searchtermFilename)
+    else:
+        queryString = _queryTerm
 
     print ("Building final query...")
     query = GetQuery(queryString)
@@ -74,8 +79,14 @@ def GetResultsFromIEEExploreOnline(_yearFilter,  _searchtermFilename):
     query.maximumResults(200)
 
     print ("Doing an ONLINE search using \n\t" + queryString)
-    data = query.callAPI()  
-    
+
+    debug = False
+    if debug:
+        data = query.callAPI(False)  
+        print(data)
+        exit()
+    else:
+        data = query.callAPI(True)  
     return data
 
 def GetResultsFromIEEExploreOffline(offlineFileFilename):
@@ -113,34 +124,52 @@ def FillDBFromData(_IEEEJSONdata):
         count +=1
         DB.append(GetRecord(item))
 
+    print (count)
     return DB
 
-def GetDB(_useOnline, _yearFilter, _searchtermFilename, _prefix1, _prefix2):
+def GetDB(_useOnline, _queryTerm, _yearFilter, _searchtermFilename, _prefix1, _prefix2):
     
     IEEEdata = ""
     tmpTotalRecords = 0
     tmpArticles = []
 
     if _useOnline:
-        currYear = _yearFilter[0]      
-        while currYear <= _yearFilter[1]:
-            IEEEdata = GetResultsFromIEEExploreOnline([str(currYear), str(currYear), True], _searchtermFilename)
+
+        if _yearFilter[2]:
+
+            currYear = _yearFilter[0]      
+            while currYear <= _yearFilter[1]:
+                IEEEdata = GetResultsFromIEEExploreOnline([str(currYear), str(currYear), True], _queryTerm, _searchtermFilename)
+                IEEEdata = json.loads(IEEEdata) # convert response from byte to json          
+
+                print (len(IEEEdata))
+
+                #print (IEEEdata)
+
+                if len(IEEEdata) >2:
+                    tmpArticles += IEEEdata['articles']
+                tmpTotalRecords += IEEEdata['total_records']
+                print ('Found ' + str(len (tmpArticles)) + ' articles.')
+
+                if (IEEEdata['total_records']) > 199:
+                    print ('Warning! To many results per query!')
+                
+                currYear += 1
+                IEEEJSONdata = IEEEdata
+
+        else:
+            IEEEdata = GetResultsFromIEEExploreOnline(_yearFilter, _queryTerm, _searchtermFilename)
             IEEEdata = json.loads(IEEEdata) # convert response from byte to json          
-
-            #print (len(IEEEdata))
-
-            #print (IEEEdata)
 
             if len(IEEEdata) >2:
                 tmpArticles += IEEEdata['articles']
-            tmpTotalRecords += IEEEdata['total_records']
-            print ('Found ' + str(len (tmpArticles)) + ' articles.')
+                tmpTotalRecords += IEEEdata['total_records']
+                print ('Found ' + str(len (tmpArticles)) + ' articles. (no year)')
 
-            if (IEEEdata['total_records']) > 199:
-                print ('Warning! To many results per query!')
-            
-            currYear += 1
-            IEEEJSONdata = IEEEdata
+                if (IEEEdata['total_records']) > 199:
+                    print ('Warning! To many results per query!')
+
+                IEEEJSONdata = IEEEdata
 
         IEEEJSONdata['articles'] = tmpArticles
         IEEEJSONdata['total_records'] = tmpTotalRecords
@@ -166,12 +195,11 @@ def GetDB(_useOnline, _yearFilter, _searchtermFilename, _prefix1, _prefix2):
 
     return DB
 
-def GetPapers(_useOnline = False):  
-    useOnline = _useOnline
+def GetPapers(_useOnline = False, queryTerm = ""):  
 
-    startYear = 2023
+    startYear = 1900
     stopYear = 2023
-    useYearFilter = True
+    useYearFilter = False
     yearFilter = [startYear, stopYear, useYearFilter]
 
     searchtermFilename = './Scrape/SearchTerms.csv'
@@ -179,9 +207,9 @@ def GetPapers(_useOnline = False):
     prefix1 =  "./Results/IEEE/" 
     prefix2 =  "IEEE__Papers__" 
 
-    DB = GetDB(useOnline, yearFilter, searchtermFilename, prefix1, prefix2)
+    DB = GetDB(_useOnline, queryTerm, yearFilter, searchtermFilename, prefix1, prefix2)
 
-    if useOnline:
+    if _useOnline:
         ScrapeHelper.WriteDBToCSV(DB, prefix1 + prefix2 + ScrapeHelper.GetNowString() + "_DB.csv", ) 
 
 ###################################################################
@@ -189,6 +217,9 @@ def GetPapers(_useOnline = False):
 ###################################################################
 
 
+_useOnline = True
+queryTerm = '("Binocular Parallax" OR "Eye Dominance" OR "Dominant Eye" OR "Ocular Dominance" OR "Sighting Dominance") NOT animals NOT rats NOT monkeys NOT surgery NOT myopia NOT cortex NOT strabismus'
+print (queryTerm)
 
-GetPapers(_useOnline = True) 
-#GetReviews(_useOnline = True)
+GetPapers(_useOnline, queryTerm)
+

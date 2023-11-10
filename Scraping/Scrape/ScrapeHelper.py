@@ -17,6 +17,8 @@ AfterStartYear = "AfterYear=" + str(2023)
 ResearchArticleOnly = 'ContentItemType=research-article'
 Expand = 'expand=dl'
 
+notTerm = ""
+
 
 
 ############# RANDOM ##############
@@ -70,7 +72,8 @@ def clean_year(_time):
         print(e)
         year = ""  
     print (year)
-    
+
+    not_term = notTerm
 ############# SEARCH QUERIES ##############
 
 def CleanMaxResultForACMURL(_numResults):
@@ -186,7 +189,7 @@ def IEEE_QueryTermBuilder(_filename):
         df = list(df)
         dfiter = iter(df)
 
-        for row in df[:-1]:
+        for row in df[:-2]:
             #print(row)              
             searchTerm = IEEE_QueryBuilderRow(searchTerm, row, True)
 
