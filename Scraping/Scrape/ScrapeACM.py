@@ -53,9 +53,12 @@ def ScrapeSoup(_soup):
         #doi = doi.replace("https://doi.org/", "")
         #print(doi)
 
-        
         itemDetail = item.find('div',{'class':'issue-item__detail'})
-        itemSubDetail = itemDetail.find('span', {'class':'dot-separator'})
+        if itemDetail is not None:
+            itemSubDetail = itemDetail.find('span', {'class':'dot-separator'})
+        else:
+            itemSubDetail = item.find('span', {'class':'simple-tooltip__block--b'})
+
         try:
             year = itemSubDetail.find('span', text=re.compile(regex)).text
             year = year.replace(",", "")
@@ -68,7 +71,10 @@ def ScrapeSoup(_soup):
         #print (year)
         
         #venue/publication
-        publicationtitle = itemDetail.find('span', {'class':'epub-section__title'}).text
+        if itemDetail is not None:
+            publicationtitle = itemDetail.find('span', {'class':'epub-section__title'}).text
+        else: 
+            publicationtitle = ""
         #print(publicationtitle)
 
         #citation count
@@ -154,15 +160,21 @@ def ProcessOfflineHTMLDocsInBulk(_basefilename):
     print (len(DB))
     return DB
 
-def GetDB(_useOnline, _searchTermFile, _prefix1, _prefix2, _bIsReview = False, _bUseOnlyTitle = False):
+def GetDB(_useOnline, _searchTerm, _prefix1, _prefix2, _bIsReview = False, _bUseOnlyTitle = False, _useTextTerm = False):
 
     magicNumber = 100 #that is the single page layout we use that does not lead to a timeout.
 
     if _useOnline:
 
         #get the one-page default ACM URL for your search terms
-        shortQueryURL = ScrapeHelper.GetQueryTerm("ACM", _searchTermFile, _bIsReview, _bUseOnlyTitle)
+        
+        if (_useTextTerm):
+            shortQueryURL = ScrapeHelper.SimplyGetACMIDontCareAnymore(_searchTerm)
+        else:
+            shortQueryURL = ScrapeHelper.GetQueryTerm("ACM", _searchTerm, _bIsReview, _bUseOnlyTitle)
 
+
+        print (shortQueryURL)
         # get init default html page - it's a short one!
         text = GetHMTLDoc(shortQueryURL)
 
@@ -183,7 +195,7 @@ def GetDB(_useOnline, _searchTermFile, _prefix1, _prefix2, _bIsReview = False, _
 
     return DB
 
-def GetPapers(_useOnline = False):
+def GetPapers(_useOnline = False, _useTextTerm = False):
 
     useOnline = _useOnline
     input("Do we query ACM and risk to get banned? " + ("Yes!" if useOnline else "No") + "\n Proceed with caution. Press Enter to continue...")
@@ -193,10 +205,13 @@ def GetPapers(_useOnline = False):
 
     prefix1 = '.\Results\ACM'
     prefix2 = 'Paper__'
-    searchTerms = '.\Scrape\SearchTerms.csv'
-    
 
-    DB = GetDB(useOnline, searchTerms, prefix1, prefix2, bIsReview,bUseOnlyTitle)
+    if _useTextTerm:
+        searchTerms = '("Binocular Parallax" OR "Eye Dominance" OR "Dominant Eye" OR "Ocular Dominance" OR "Sighting Dominance") NOT animals NOT rats NOT monkeys NOT surgery NOT myopia NOT cortex NOT strabismus'  
+    else:
+        searchTerms = '.\Scrape\SearchTerms.csv'
+
+    DB = GetDB(useOnline, searchTerms, prefix1, prefix2, bIsReview,bUseOnlyTitle, _useTextTerm)
 
     if useOnline:
         ScrapeHelper.WriteDBToCSV(DB, prefix1 + "/" + prefix2 + ScrapeHelper.GetNowString() + "_DB.csv") 
@@ -206,4 +221,6 @@ def GetPapers(_useOnline = False):
 ############################################################################
 
 #HACK year is defined in ScrapeHelper.py
-GetPapers(_useOnline = True)
+_useOnline = True
+_useTextTerm = True
+GetPapers(_useOnline, _useTextTerm)

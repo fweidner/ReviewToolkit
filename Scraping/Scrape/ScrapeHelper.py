@@ -11,7 +11,10 @@ sConnectChar = "&"
 sAllField = "AllField="
 sBaseString = "https://dl.acm.org/action/doSearch?fillQuickSearch=false&expand=dl" # only acm full-text 
 sBaseString = "https://dl.acm.org/action/doSearch?fillQuickSearch=false&target=advanced" #acm guide to computing lib
+sBaseString = 'https://dl.acm.org/action/doSearch?AllField='
+sEndString = '&expand=dl"' #dl is digital lib; all ' computing lib
 
+## this is for acm
 AfterStartMonth = "AfterMonth=" + str(1)
 AfterStartYear = "AfterYear=" + str(2023)
 ResearchArticleOnly = 'ContentItemType=research-article'
@@ -249,7 +252,18 @@ def GetQueryTerm(_provider, _filename, _bIsReview = False, _bUseOnlyTitle = Fals
     else:
         print("Unknown provider. Sry my frien'!")
 
+def SimplyGetACMIDontCareAnymore(_searchTerm):
+    res = ""
 
+    res += sBaseString
+    res += _searchTerm
+
+
+
+
+    res += sEndString
+
+    return res
 
 #################################################################
 
