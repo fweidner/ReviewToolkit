@@ -106,7 +106,7 @@ class MainWindow(Frame):
              command=self.set_iterator_menu_status)
 
         self.show_only_filtered = tk.BooleanVar()
-        self.iteratorMenu.add_checkbutton(label = "show only filtered", onvalue=1, offvalue=0, variable=self.show_only_filtered,
+        self.iteratorMenu.add_checkbutton(label = "show only search", onvalue=1, offvalue=0, variable=self.show_only_filtered,
              command=self.set_iterator_menu_status)
 
         self.show_only_not_include = tk.BooleanVar()
