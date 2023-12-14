@@ -340,12 +340,7 @@ class Controller:
         
         return tmp
 
-    def checkkey(myvalue):
-        if myvalue == "":
-            print("empty; returning true")
-            return True;
-        else:
-            return bool(int(float(myvalue)))
+
 ############################################################################################
 
 
