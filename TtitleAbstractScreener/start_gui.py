@@ -54,4 +54,5 @@ if __name__ == '__main__':
 # TODO [ ] clean up MainWindow.py - it started good but than it just got wild
 # TODO [ ] add 1-5 keys to review-element checkboxes
 # TODO [ ] make bullet points fully dynamic (also in controller and datahandler)
-# TODO [ ] change labels in filters
+# TODO [x] change labels in filters
+# TODO [x] add filter for check_later
