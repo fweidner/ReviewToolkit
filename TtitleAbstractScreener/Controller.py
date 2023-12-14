@@ -279,11 +279,12 @@ class Controller:
         N = self.get_count()
         n = 0
 
-        show_only_include = _iterator_options[0].get()
-        show_only_filtered = _iterator_options[1].get()
-        show_only_not_include = _iterator_options[2].get()
-        show_only_not_mobile_ar = _iterator_options[3].get()
-        show_only_empty = _iterator_options[4].get()
+        show_only_maybe = _iterator_options[0].get()
+        show_only_include = _iterator_options[1].get()
+        show_only_filtered = _iterator_options[2].get()
+        show_only_not_include = _iterator_options[3].get()
+        show_only_not_mobile_ar = _iterator_options[4].get()
+        show_only_empty = _iterator_options[5].get()
 
         b_need_new_item = True
 
@@ -298,10 +299,12 @@ class Controller:
             with open('config.json', 'r') as json_file:
                 json_data = json.load(json_file)
                 key_include = json_data['keys']['review_elements']['include']
+                key_maybe = json_data['keys']['review_elements']['checklater']
                 key_mobile_ar = json_data['keys']['review_elements']['population']
                 key_intervention = json_data['keys']['review_elements']['intervention']
                 key_comparison = json_data['keys']['review_elements']['comparison']
                 key_context = json_data['keys']['review_elements']['context']
+                key_outcomes = json_data['keys']['review_elements']['outcomes']
                 #if you add more than picoc, use them here.
                 
             # init our bool values that actually indicate if an item (tmp) is tagged with maybe or include
@@ -310,10 +313,14 @@ class Controller:
             b_is_intervention = bool(int(float(tmp[key_intervention])))
             b_is_comparison = bool(int(float(tmp[key_comparison])))
             b_is_context = bool(int(float(tmp[key_context])))
+            b_is_maybe = bool(int(float(tmp[key_maybe])))
+            b_is_outcomes = bool(int(float(tmp[key_outcomes])))
             
             b_is_as_filter = self.search(tmp) 
 
             # set the bool values so that we can determine which filter we apply
+            if show_only_maybe and not b_is_maybe:
+                b_need_new_item = True
             if show_only_include and not b_is_include:
                 b_need_new_item = True
             if not b_need_new_item and show_only_not_include and b_is_include:
@@ -323,7 +330,7 @@ class Controller:
             if not b_need_new_item and show_only_not_mobile_ar and not b_is_mobile_ar:
                 b_need_new_item = True
             if not b_need_new_item and show_only_empty:
-                if b_is_mobile_ar or b_is_intervention or b_is_comparison or b_is_context or b_is_include:
+                if b_is_mobile_ar or b_is_outcomes or b_is_intervention or b_is_comparison or b_is_context or b_is_include or b_is_maybe:
                     b_need_new_item = True
                
             n = n + 1
@@ -333,7 +340,12 @@ class Controller:
         
         return tmp
 
-
+    def checkkey(myvalue):
+        if myvalue == "":
+            print("empty; returning true")
+            return True;
+        else:
+            return bool(int(float(myvalue)))
 ############################################################################################
 
 

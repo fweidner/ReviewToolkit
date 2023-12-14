@@ -98,8 +98,8 @@ class MainWindow(Frame):
         menu.add_cascade(label="Iterator", menu=self.iteratorMenu)     
 
         self.show_only_maybe = tk.BooleanVar()
-        # self.iteratorMenu.add_checkbutton(label = "show only maybe", onvalue=1, offvalue=0, variable=self.show_only_maybe,
-            #  command=self.set_iterator_menu_status)
+        self.iteratorMenu.add_checkbutton(label = "show only maybe", onvalue=1, offvalue=0, variable=self.show_only_maybe,
+             command=self.set_iterator_menu_status)
 
         self.show_only_include = tk.BooleanVar()
         self.iteratorMenu.add_checkbutton(label = "show only include", onvalue=1, offvalue=0, variable=self.show_only_include,
@@ -471,7 +471,7 @@ class MainWindow(Frame):
 
 
     def get_iterator_options(self):
-        return [self.show_only_include, self.show_only_filtered, self.show_only_not_include, self.show_only_not_mobile_ar, self.show_only_empty]
+        return [self.show_only_maybe, self.show_only_include, self.show_only_filtered, self.show_only_not_include, self.show_only_not_mobile_ar, self.show_only_empty]
 
     
 
