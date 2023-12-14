@@ -33,9 +33,9 @@ def ScrapeSoup(_soup):
         #TypeOfWork
         typeOfWork = item.find('div',{'class':'issue-heading'}).text
         #print (typeOfWork)
-        if typeOfWork == "proceeding" or typeOfWork == "book":
-            skippedItems += 1
-            continue 
+        # if typeOfWork == "proceeding" or typeOfWork == "book":
+            # skippedItems += 1
+            # continue 
     
         
         #Title
@@ -204,17 +204,18 @@ def GetPapers(_useOnline = False, _useTextTerm = False):
     bUseOnlyTitle = False
 
     prefix1 = '.\Results\ACM'
-    prefix2 = 'ACM__Paper__'
+    prefix2 = 'Paper__'
 
     if _useTextTerm:
-        searchTerms = '("Binocular Parallax" OR "Eye Dominance" OR "Dominant Eye" OR "Ocular Dominance" OR "Sighting Dominance") NOT animals NOT rats NOT monkeys NOT surgery NOT myopia NOT cortex NOT strabismus'  
+        # searchTerms = '("Binocular Parallax" OR "Eye Dominance" OR "Dominant Eye" OR "Ocular Dominance" OR "Sighting Dominance") NOT animals NOT rats NOT monkeys NOT surgery NOT myopia NOT cortex NOT strabismus'  
+        searchTerms = '("Binocular Parallax" OR "Eye Dominance" OR "Dominant Eye" OR "Ocular Dominance" OR "Sighting Dominance")' 
     else:
         searchTerms = '.\Scrape\SearchTerms.csv'
 
     DB = GetDB(useOnline, searchTerms, prefix1, prefix2, bIsReview,bUseOnlyTitle, _useTextTerm)
 
     if useOnline:
-        ScrapeHelper.WriteDBToCSV(DB, prefix1 + "/" + prefix2 + ScrapeHelper.GetNowString() + "_DB.csv") 
+        ScrapeHelper.WriteDBToCSV(DB, prefix1 + "/ACM__" + prefix2 + ScrapeHelper.GetNowString() + "_DB.csv") 
 
 ############################################################################
 ############################################################################
