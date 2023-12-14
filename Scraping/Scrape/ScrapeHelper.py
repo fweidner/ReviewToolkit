@@ -13,6 +13,8 @@ sBaseString = "https://dl.acm.org/action/doSearch?fillQuickSearch=false&expand=d
 sBaseString = "https://dl.acm.org/action/doSearch?fillQuickSearch=false&target=advanced" #acm guide to computing lib
 sBaseString = 'https://dl.acm.org/action/doSearch?AllField='
 sEndString = '&expand=dl"' #dl is digital lib; all ' computing lib
+sEndStringQuick = '&expand=dl' #dl is digital lib; all ' computing lib
+
 
 ## this is for acm
 AfterStartMonth = "AfterMonth=" + str(1)
@@ -261,7 +263,7 @@ def SimplyGetACMIDontCareAnymore(_searchTerm):
 
 
 
-    res += sEndString
+    res += sEndStringQuick
 
     return res
 
