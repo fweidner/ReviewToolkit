@@ -78,13 +78,16 @@ def RemoveDuplicateEntriesFromDataframeBasedOnDOI(_df):
     
     len_before = len(_df)
  
-    _df = _df.drop_duplicates(subset=['doi'])
-
-    len_after = len(_df)
+    _df_new = _df.drop_duplicates(subset=['doi'])
+    len_after = len(_df_new)
     
     print("Removed " + str(len_before-len_after) + " elements. New length: " + str(len(_df)))
 
-    return _df
+    _df_new = _df_new.merge(_df.loc[_df['doi'] == '0000'], how = 'outer')
+  
+    print("Added " + str(len(_df_new)-len_after) + " elements (0000 dois). New length: " + str(len(_df_new)))
+
+    return _df_new
 
 def GetNoDuplicateCSV(_df, _filename, _filepath):
     _df['keywords'] = _df['title']

@@ -24,15 +24,15 @@ def add_final_columns_for_toolkit(_df):
 
 ##########################################################
 
-path = "./Results/"
-input_file = "2023-04-04_12-45_All" 
-input_file_ext = ".csv"
+# path = "./Results/"
+# input_file = "2023-04-04_12-45_All" 
+# input_file_ext = ".csv"
 
-df = pd.read_csv(path + input_file + input_file_ext, sep=";", quoting=2)
-df = make_to_int(df)
-df = add_final_columns_for_toolkit(df) #this one is extremely important!
+# df = pd.read_csv(path + input_file + input_file_ext, sep=";", quoting=2)
+# df = make_to_int(df)
+# df = add_final_columns_for_toolkit(df) #this one is extremely important!
 
-# print (df.head())
+# # print (df.head())
 
-new_input_file = input_file + "-Clean" + input_file_ext
-df.to_csv(path + new_input_file, sep=";", index=None)
+# new_input_file = input_file + "-Clean" + input_file_ext
+# df.to_csv(path + new_input_file, sep=";", index=None)

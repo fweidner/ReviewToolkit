@@ -219,6 +219,7 @@ def GetPapers(_useOnline = False, queryTerm = ""):
 
 _useOnline = True
 queryTerm = '("Binocular Parallax" OR "Eye Dominance" OR "Dominant Eye" OR "Ocular Dominance" OR "Sighting Dominance") NOT animals NOT rats NOT monkeys NOT surgery NOT myopia NOT cortex NOT strabismus'
+queryTerm = '(( ("Abstract":head) AND ("Abstract":interact* OR "Abstract":input) AND ("Abstract":movement OR "Abstract":gesture OR "Abstract":pointing OR "Abstract":selection)) OR ( ("Document Title":head) AND ("Document Title":interact* OR "Document Title":input) AND ("Document Title":movement OR "Document Title":gesture OR "Document Title":pointing OR "Document Title":selection)) OR (("Author Keywords":head) AND ("Author Keywords":interact* OR "Author Keywords":input) AND ("Author Keywords":movement OR "Author Keywords":gesture OR "Author Keywords":pointing OR "Author Keywords":selection)) )'
 print (queryTerm)
 
 GetPapers(_useOnline, queryTerm)
