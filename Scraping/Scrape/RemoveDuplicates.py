@@ -81,7 +81,7 @@ def RemoveDuplicateEntriesFromDataframeBasedOnDOI(_df):
     _df_new = _df.drop_duplicates(subset=['doi'])
     len_after = len(_df_new)
     
-    print("Removed " + str(len_before-len_after) + " elements. New length: " + str(len(_df)))
+    print("Removed " + str(len_before-len_after) + " elements. New length: " + str(len_after))
 
     _df_new = _df_new.merge(_df.loc[_df['doi'] == '0000'], how = 'outer')
   

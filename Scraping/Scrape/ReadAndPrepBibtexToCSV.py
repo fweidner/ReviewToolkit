@@ -42,7 +42,7 @@ def iterateOverEntry(_entry):
     citationcount = 0   
 
     doi = doi.replace('https://doi.org/', '')
-    print (doi)
+    # print (doi)
     
     global finalList
 
@@ -117,7 +117,7 @@ iterateOverFiles(rootDir)
 targetDir = "./Results/"
 timestr = time.strftime("%Y%m%d-%H%M%S")
 filename = "Results.csv"
-writeFinalFile(targetDir+timestr+"-"+filename)
+# writeFinalFile(targetDir+timestr+"-"+filename)
 
 # convert to pandas
 finalDf = pd.DataFrame(finalList)
@@ -129,6 +129,11 @@ finalDf.columns = new_header #set the header row as the df header
 # cleaning
 finalDf = CleanUpDatabase.make_to_int(finalDf)
 finalDf = CleanUpDatabase.add_final_columns_for_toolkit(finalDf)
+finalDf = RemoveDuplicates.RemoveDuplicateEntriesFromDataframeBasedOnDOI(finalDf)
 
-finalDF = RemoveDuplicates.RemoveDuplicateEntriesFromDataframeBasedOnDOI(finalDf)
-finalDf.to_csv(targetDir + "-converted.csv", sep=";", index=None)
+finalDf["other"] = "0"
+finalDf["backtracking"] = "0"
+
+print(len(finalDf))
+finalDf.to_csv(targetDir + timestr + "-" + filename + "-converted.csv", sep=";")
+# finalDf.to_csv(targetDir + "-" + filename + "-converted.csv", sep=";", encoding='utf-8')
