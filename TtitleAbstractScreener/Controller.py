@@ -106,12 +106,20 @@ class Controller:
     def set_new_lbl_url(self, tmp, _lbl_url):
         _lbl_url.delete(0, END)
         _lbl_url.insert(0, tmp[self.key_url])
-        self.current_url = "https://doi.org/" + tmp[self.key_url]
+        
+        self.current_url = tmp[self.key_url]
+
+
+        doiprefix = "https://doi.org/"
+        if "http" not in self.current_url: #I'm too lazy too parse, if it's not a doi, you're on your own.
+            self.current_url = doiprefix + tmp[self.key_url]
+        else: 
+            self.current_url = tmp[self.key_url]
         # if len(self.current_url) > 45:
         #     _lbl_url['text'] = self.current_url[0:45] + "..."
         # else:
         #     _lbl_url['text'] = self.current_url
-
+        
     def set_review_items(self, tmp, _review_elements_list):
         for item in tmp: # from file
             for list_element in _review_elements_list:  # from app
@@ -137,7 +145,7 @@ class Controller:
     # update current
     def update_current_item_in_file(self, _tf_abstract, _tf_title, _review_elements_list, _tf_year, _tf_doi):
         abstract = _tf_abstract.get(1.0, END)
-        title = _tf_title.get()
+        title = _tf_title.get(1.0, END)
         year = _tf_year.get()
         doi = _tf_doi.get()
 
