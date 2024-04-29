@@ -50,9 +50,13 @@ if __name__ == '__main__':
 # TODO [x] allow use of <- and -> in text fields
 # TODO [x] lstrip items
 # TODO [x] fix filter system
-# TODO [ ] Add context menu
-# TODO [ ] clean up MainWindow.py - it started good but than it just got wild
-# TODO [ ] add 1-5 keys to review-element checkboxes
-# TODO [ ] make bullet points fully dynamic (also in controller and datahandler)
 # TODO [x] change labels in filters
 # TODO [x] add filter for check_later
+# TODO [ ] Add context menu
+# TODO [ ] clean up MainWindow.py - it started good but than it just got wild
+# TODO [x] add 1-5 keys to review-element checkboxes
+# TODO [ ] make bullet points fully dynamic (also in controller and datahandler)
+# TODO [x] make doi editable
+# TODO [x] make title larger (scales)
+# TODO [ ] speed when searching (add better filtering)
+

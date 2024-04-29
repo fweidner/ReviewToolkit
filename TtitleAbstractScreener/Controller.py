@@ -84,7 +84,7 @@ class Controller:
         res = "Entry " + str(current_row_index+1) + " out of " + str(total_items) 
         return res
 
-    def get_count(self, _print = True):
+    def get_count(self, _print = False):
         return self.my_data_handler.print_count(_print)
 
     def get_row_index(self):
@@ -103,9 +103,9 @@ class Controller:
         _tf_title.delete(1.0, END)
         _tf_title.insert(1.0, tmp[self.key_title])
 
-    def set_new_lbl_url(self, tmp, _lbl_url):
-        _lbl_url.delete(0, END)
-        _lbl_url.insert(0, tmp[self.key_url])
+    def set_new_entry_url(self, tmp, _entry_url):
+        _entry_url.delete(0, END)
+        _entry_url.insert(0, tmp[self.key_url])
         
         self.current_url = tmp[self.key_url]
 
@@ -116,10 +116,10 @@ class Controller:
         else: 
             self.current_url = tmp[self.key_url]
         # if len(self.current_url) > 45:
-        #     _lbl_url['text'] = self.current_url[0:45] + "..."
+        #     _entry_url['text'] = self.current_url[0:45] + "..."
         # else:
-        #     _lbl_url['text'] = self.current_url
-        
+        #     _entry_url['text'] = self.current_url
+
     def set_review_items(self, tmp, _review_elements_list):
         for item in tmp: # from file
             for list_element in _review_elements_list:  # from app
@@ -154,35 +154,35 @@ class Controller:
 
     ##########
     # set prev/next item
-    def set_single_item(self, tmp, _tf_abstract, _tf_title, _lbl_url, _review_elements_list, _tf_year):
+    def set_single_item(self, tmp, _tf_abstract, _tf_title, _entry_url, _review_elements_list, _tf_year):
         if tmp != -1:
             #print(str(tmp))
             self.set_new_abstract(tmp, _tf_abstract)
             self.set_new_title(tmp, _tf_title)
-            self.set_new_lbl_url(tmp,_lbl_url)
+            self.set_new_entry_url(tmp,_entry_url)
             self.set_new_year(tmp, _tf_year)
 
             self.set_review_items(tmp,_review_elements_list)
         else:
             self.my_data_handler.reset_reader()
     
-    def set_next_item(self, _tf_abstract, _tf_title, _lbl_url, _review_elements_list, _tf_year, _iterator_options):
+    def set_next_item(self, _tf_abstract, _tf_title, _entry_url, _review_elements_list, _tf_year, _iterator_options):
         
         tmp = self.get_next_or_prev_per_condition(False, _iterator_options)
 
-        self.set_single_item(tmp, _tf_abstract, _tf_title, _lbl_url, _review_elements_list, _tf_year)
+        self.set_single_item(tmp, _tf_abstract, _tf_title, _entry_url, _review_elements_list, _tf_year)
 
-    def set_prev_item(self, _tf_abstract, _tf_title, _lbl_url, _review_elements_list, _tf_year, _iterator_options):
+    def set_prev_item(self, _tf_abstract, _tf_title, _entry_url, _review_elements_list, _tf_year, _iterator_options):
 
         tmp = self.get_next_or_prev_per_condition(True, _iterator_options)
 
-        self.set_single_item(tmp, _tf_abstract, _tf_title, _lbl_url, _review_elements_list, _tf_year)
+        self.set_single_item(tmp, _tf_abstract, _tf_title, _entry_url, _review_elements_list, _tf_year)
     
-    def set_specific_item(self, _tf_abstract, _tf_title, _lbl_url, _review_elements_list, _row_index, _tf_year):
+    def set_specific_item(self, _tf_abstract, _tf_title, _entry_url, _review_elements_list, _row_index, _tf_year):
         
         tmp = self.my_data_handler.get_specific_item(_row_index)
         
-        self.set_single_item(tmp, _tf_abstract, _tf_title, _lbl_url, _review_elements_list, _tf_year)       
+        self.set_single_item(tmp, _tf_abstract, _tf_title, _entry_url, _review_elements_list, _tf_year)       
 
     ##########
     # save operations
@@ -194,9 +194,9 @@ class Controller:
         print("swap_save")
         self.my_data_handler.swap_save()
 
-    def open_url(self, _lbl_url):
+    def open_url(self, _entry_url):
         
-        print ('controller open url:' + _lbl_url.get())  
+        print ('controller open url:' + _entry_url.get())  
         with open('config.json', 'r') as json_file:
             json_data = json.load(json_file)
             browser_path = json_data['browser']
@@ -206,7 +206,7 @@ class Controller:
 	        webbrowser.BackgroundBrowser(browser_path))
         webbrowser.get('browser').open(url)
 
-    def do_exit(self, _result, _text_abstract, _entry_title, _lbl_url, _review_element_list, _entry_year):
+    def do_exit(self, _result, _text_abstract, _entry_title, _entry_url, _review_element_list, _entry_year):
         if _result is None:
             print ("Yes, do some more work!")
             return False
@@ -215,7 +215,7 @@ class Controller:
             return True
         else:
             print ("dosave stuff")
-            self.update_current_item_in_file(_text_abstract, _entry_title, _review_element_list, _entry_year, _lbl_url)
+            self.update_current_item_in_file(_text_abstract, _entry_title, _review_element_list, _entry_year, _entry_url)
             self.do_swap_save()
             return True
 

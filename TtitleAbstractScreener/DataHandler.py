@@ -26,6 +26,8 @@ class DataHandler():
 
         self.convert_to_list()
         
+        self.print_count(True)
+
         self.csv_file.close()
 
     def get_root_val_from_config(self, _keys):
@@ -36,7 +38,7 @@ class DataHandler():
                 res = json_data[_keys[0]]
         else: 
             print ("Key error in get_root_val_from_config")
-        print("using " + res + " as delimiter.")
+        # print("using " + res + " as delimiter.")
         return res;
 
 
@@ -101,7 +103,7 @@ class DataHandler():
         return tmp
 
     def get_specific_item(self, _index):
-        print( 'get specific')
+        # print( 'get specific')
         self.row_index = _index
 
         tmp = self.my_csv_data_list[self.row_index]

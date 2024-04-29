@@ -72,7 +72,7 @@ class MainWindow(Frame):
         self.font_size = _newsize
         Font_tuple = ("Calibri", self.font_size, "normal")
         self.text_abstract.configure(font = Font_tuple)
-        self.entry_title.configure(font=Font_tuple)
+        self.text_title.configure(font=Font_tuple)
         
 
     def init_menubar(self):
@@ -152,13 +152,13 @@ class MainWindow(Frame):
         lbl_title = Label(frame_title, text="Title", width=6)
         lbl_title.pack(side=LEFT, padx=5, pady=5)
 
-        # self.entry_title = Entry(frame_title)
-        # self.entry_title.pack(fill=X, padx=5, expand=True)
-        self.entry_title = Text(frame_title, wrap=tk.WORD, height=2)
-        scroll_y = tk.Scrollbar(frame_title, orient="vertical", command=self.entry_title.yview)
+        # self.text_title = Entry(frame_title)
+        # self.text_title.pack(fill=X, padx=5, expand=True)
+        self.text_title = Text(frame_title, wrap=tk.WORD, height=2)
+        scroll_y = tk.Scrollbar(frame_title, orient="vertical", command=self.text_title.yview)
         scroll_y.pack(side="right", fill="y")
-        self.entry_title.configure(yscrollcommand=scroll_y.set)
-        self.entry_title.pack(fill=BOTH, side=LEFT, padx=5, expand = True)
+        self.text_title.configure(yscrollcommand=scroll_y.set)
+        self.text_title.pack(fill=BOTH, side=LEFT, padx=5, expand = True)
 
         #####################
         # abstract
@@ -263,8 +263,8 @@ class MainWindow(Frame):
         btn_openurltop.pack(side=RIGHT, padx=5, pady=5)
 
 
-        self.lbl_url = Entry(frame_url, text="", width=30)
-        self.lbl_url.pack(side=RIGHT)    
+        self.entry_url = Entry(frame_url, text="", width=30)
+        self.entry_url.pack(side=RIGHT)    
 
 
         return frame_url
@@ -295,32 +295,32 @@ class MainWindow(Frame):
     
 
     def tooglep(self, event = None):
-        print (str(event) + " go button pressed")
+        print (" go button pressed")
 
         index = (int)(event.keycode)
         index = index - 112 #112 is the keycode for f1
         
-        print (len(self.review_elements_list))
-        print (index)
+        # print (len(self.review_elements_list))
+        # print (index)
         if len(self.review_elements_list) > index:
             checkbox = self.review_elements_list[index][2]
             checkbox.toggle()
 
 
     def clickButtonGo(self, event=None):
-        print (str(event) + " go button pressed")
+        print (" go button pressed")
         self.do_go()
 
     def clickButtonPrev(self, event=None):
-        print (str(event) + " prev button pressed")
+        print (" prev button pressed")
         self.do_prev()
 
     def clickButtonNext(self, event=None):
-        print (str(event) + " next button pressed")
+        print (" next button pressed")
         self.do_next()
 
     def open_url(self, event=None):
-        print(str(event) + "mainwindow openurl 1")
+        # print("mainwindow openurl 1")
         self.do_open_url()
 
     def exit_program(self, event=None):
@@ -330,20 +330,20 @@ class MainWindow(Frame):
             sys.exit(0)
 
     def left_key(self, event):
-        print (str(event) + " key pressed")
+        print (" key pressed")
         self.do_prev()
 
     def right_key(self, event):    
-        print (str(event) + " key pressed")
+        print (" key pressed")
         self.do_next()
     
     def increase_fontsize(self, event):
-        print (str(event) + " increase font size")
+        print (" increase font size")
         self.font_size  = self.font_size + 1
         self.set_font(self.font_size)
 
     def decrease_fontsize(self, event):
-        print (str(event) + " decrease font size")
+        print (" decrease font size")
         self.font_size  = self.font_size - 1
         self.set_font(self.font_size)
 
@@ -430,8 +430,8 @@ class MainWindow(Frame):
         self.my_controller.get_stats(newWindow)
         
     def update_current(self):
-        self.my_controller.update_current_item_in_file(self.text_abstract, self.entry_title, self.review_elements_list, 
-            self.entry_year, self.lbl_url)
+        self.my_controller.update_current_item_in_file(self.text_abstract, self.text_title, self.review_elements_list, 
+            self.entry_year, self.entry_url)
 
     def update_row_index_count_string(self):
         self.my_controller.set_row_index_count_string(self.row_index_count_stringvar)
@@ -440,14 +440,14 @@ class MainWindow(Frame):
         #set next item
         self.cleanAbstract()
         self.update_current()# updates current elements to file to retain changes!
-        self.my_controller.set_next_item(self.text_abstract, self.entry_title, self.lbl_url, self.review_elements_list, 
+        self.my_controller.set_next_item(self.text_abstract, self.text_title, self.entry_url, self.review_elements_list, 
             self.entry_year, self.get_iterator_options())    
         self.update_row_index_count_string()
         self.do_save()
 
     def do_prev(self):
         self.update_current()
-        self.my_controller.set_prev_item(self.text_abstract, self.entry_title, self.lbl_url, self.review_elements_list, 
+        self.my_controller.set_prev_item(self.text_abstract, self.text_title, self.entry_url, self.review_elements_list, 
             self.entry_year, self.get_iterator_options()) 
         self.update_row_index_count_string()
         self.do_save()
@@ -459,12 +459,12 @@ class MainWindow(Frame):
         self.my_controller.do_swap_save()
 
     def do_exit(self, _result):
-        return (self.my_controller.do_exit(_result, self.text_abstract, self.entry_title, self.lbl_url, self.review_elements_list, 
+        return (self.my_controller.do_exit(_result, self.text_abstract, self.text_title, self.entry_url, self.review_elements_list, 
             self.entry_year))
 
     def do_open_url(self):
-        print("mainwindow openurl 2")
-        self.my_controller.open_url(self.lbl_url)
+        # print("mainwindow openurl 2")
+        self.my_controller.open_url(self.entry_url)
 
     def do_go(self):      
         print ("go")
@@ -473,7 +473,7 @@ class MainWindow(Frame):
 
         new_row_index  = int(self.entry_target_row_index.get())-1
         print (str(new_row_index))
-        self.my_controller.set_specific_item(self.text_abstract, self.entry_title, self.lbl_url, self.review_elements_list, 
+        self.my_controller.set_specific_item(self.text_abstract, self.text_title, self.entry_url, self.review_elements_list, 
             new_row_index, self.entry_year)
 
         self.update_row_index_count_string()
