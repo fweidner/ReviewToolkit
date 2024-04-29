@@ -55,7 +55,7 @@ class DataHandler():
     def get_row_index(self):
         return self.row_index
     
-    def update_current_item_in_file(self, _abstract, _title, _review_elements_list, _tf_year):
+    def update_current_item_in_file(self, _abstract, _title, _review_elements_list, _tf_year, _tf_doi):
         if self.row_index == -1: # we do this because it otherwise overwrites the log
             return
 
@@ -64,10 +64,12 @@ class DataHandler():
             key_abstract = json_data['keys']['abstract']
             key_title = json_data['keys']['title']
             key_year = json_data['keys']['year']
+            key_doi = json_data['keys']['url']
 
         self.my_csv_data_list[self.row_index][key_abstract] = _abstract.rstrip()
         self.my_csv_data_list[self.row_index][key_title] = _title.rstrip()
         self.my_csv_data_list[self.row_index][key_year] = _tf_year.rstrip()
+        self.my_csv_data_list[self.row_index][key_doi] = _tf_doi.rstrip()
 
         for list_element in _review_elements_list:
             #print ("\t" + str(list_element))

@@ -53,6 +53,8 @@ class MainWindow(Frame):
         self.init_menubar()
 
         tmp_frame = self.init_url()
+
+        # self.init_doi()
         
         self.init_core_elements()
 
@@ -231,11 +233,22 @@ class MainWindow(Frame):
         return self.do_exit(result)
 
     def init_url(self):
+
+        # frame_doi = Frame(self)
+        # frame_doi.pack(fill=X)
+
+        # lbl_year = Label(frame_doi, text="DOI", width=6)
+        # lbl_year.pack(side=LEFT, padx=5, pady=5)
+
+        # self.entry_year = Entry(frame_doi)
+        # self.entry_year.pack(fill=X, padx=5, expand=True)
+
+
         frame_url = Frame(self)
         frame_url.pack(fill=X, padx=5, pady=5)      
-        self.lbl_url = Label(frame_url, text="", fg="blue", cursor="hand2")
+        self.lbl_url = Entry(frame_url, text="", fg="blue", cursor="hand2", width=30)
         self.lbl_url.pack(side=RIGHT)    
-        self.lbl_url.bind("<Button-1>", self.open_url)
+
         return frame_url
 
     def init_count(self, _frame):
@@ -397,7 +410,7 @@ class MainWindow(Frame):
         
     def update_current(self):
         self.my_controller.update_current_item_in_file(self.text_abstract, self.entry_title, self.review_elements_list, 
-            self.entry_year)
+            self.entry_year, self.lbl_url)
 
     def update_row_index_count_string(self):
         self.my_controller.set_row_index_count_string(self.row_index_count_stringvar)
@@ -425,7 +438,7 @@ class MainWindow(Frame):
         self.my_controller.do_swap_save()
 
     def do_exit(self, _result):
-        return (self.my_controller.do_exit(_result, self.text_abstract, self.entry_title, self.review_elements_list, 
+        return (self.my_controller.do_exit(_result, self.text_abstract, self.entry_title, self.lbl_url, self.review_elements_list, 
             self.entry_year))
 
     def do_open_url(self):

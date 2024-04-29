@@ -104,11 +104,13 @@ class Controller:
         _tf_title.insert(0, tmp[self.key_title])
 
     def set_new_lbl_url(self, tmp, _lbl_url):
-        self.current_url = tmp[self.key_url]
-        if len(self.current_url) > 45:
-            _lbl_url['text'] = self.current_url[0:45] + "..."
-        else:
-            _lbl_url['text'] = self.current_url
+        _lbl_url.delete(0, END)
+        _lbl_url.insert(0, tmp[self.key_url])
+        self.current_url = "https://doi.org/" + tmp[self.key_url]
+        # if len(self.current_url) > 45:
+        #     _lbl_url['text'] = self.current_url[0:45] + "..."
+        # else:
+        #     _lbl_url['text'] = self.current_url
 
     def set_review_items(self, tmp, _review_elements_list):
         for item in tmp: # from file
@@ -133,12 +135,13 @@ class Controller:
 
     ##########
     # update current
-    def update_current_item_in_file(self, _tf_abstract, _tf_title, _review_elements_list, _tf_year):
+    def update_current_item_in_file(self, _tf_abstract, _tf_title, _review_elements_list, _tf_year, _tf_doi):
         abstract = _tf_abstract.get(1.0, END)
         title = _tf_title.get()
         year = _tf_year.get()
+        doi = _tf_doi.get()
 
-        self.my_data_handler.update_current_item_in_file(abstract, title, _review_elements_list, year)
+        self.my_data_handler.update_current_item_in_file(abstract, title, _review_elements_list, year, doi)
         #print (text_from_textfield)
 
     ##########
@@ -184,9 +187,8 @@ class Controller:
         self.my_data_handler.swap_save()
 
     def open_url(self, _lbl_url):
-        #HACK should be able to specify in config/settings which browser to register
-        #print ('controller open url' + str(_lbl_url['text']))  
-        print ('open url')  
+        
+        print ('controller open url:' + _lbl_url.get())  
         with open('config.json', 'r') as json_file:
             json_data = json.load(json_file)
             browser_path = json_data['browser']
@@ -196,7 +198,7 @@ class Controller:
 	        webbrowser.BackgroundBrowser(browser_path))
         webbrowser.get('browser').open(url)
 
-    def do_exit(self, _result, _text_abstract, _entry_title, _review_element_list, _entry_year):
+    def do_exit(self, _result, _text_abstract, _entry_title, _lbl_url, _review_element_list, _entry_year):
         if _result is None:
             print ("Yes, do some more work!")
             return False
@@ -205,7 +207,7 @@ class Controller:
             return True
         else:
             print ("dosave stuff")
-            self.update_current_item_in_file(_text_abstract, _entry_title, _review_element_list, _entry_year)
+            self.update_current_item_in_file(_text_abstract, _entry_title, _review_element_list, _entry_year, _lbl_url)
             self.do_swap_save()
             return True
 
