@@ -246,8 +246,14 @@ class MainWindow(Frame):
 
         frame_url = Frame(self)
         frame_url.pack(fill=X, padx=5, pady=5)      
-        self.lbl_url = Entry(frame_url, text="", fg="blue", cursor="hand2", width=30)
+
+        btn_openurltop = Button(frame_url, text="Open URL", command=self.open_url)
+        btn_openurltop.pack(side=RIGHT, padx=5, pady=5)
+
+
+        self.lbl_url = Entry(frame_url, text="", width=30)
         self.lbl_url.pack(side=RIGHT)    
+
 
         return frame_url
 
