@@ -267,9 +267,10 @@ class MainWindow(Frame):
         print (str(event) + " go button pressed")
 
         index = (int)(event.keycode)
-        index = index -112
-        checkbox = self.review_elements_list[index][2]
-        checkbox.toggle()
+        index = index -112 #112 is the keycode for f1
+        if len(self.review_elements_list) >= index:
+            checkbox = self.review_elements_list[index][2]
+            checkbox.toggle()
 
 
     def clickButtonGo(self, event=None):
@@ -379,6 +380,8 @@ class MainWindow(Frame):
         messagetext += "STRG + +: increase font size of abstract\n"
         messagetext += "STRG + -: decrease font size of abstract\n"
         messagetext += "STRG + o: open URL in browser (browser path in config.json\n"
+        messagetext += "F keys for checkboxes\n"
+        
 
         messagetext += "\n Enjoy :)"
 
