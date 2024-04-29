@@ -72,6 +72,8 @@ class MainWindow(Frame):
         self.font_size = _newsize
         Font_tuple = ("Calibri", self.font_size, "normal")
         self.text_abstract.configure(font = Font_tuple)
+        self.entry_title.configure(font=Font_tuple)
+        
 
     def init_menubar(self):
         # menu
@@ -142,6 +144,7 @@ class MainWindow(Frame):
         self.entry_year = Entry(frame_year)
         self.entry_year.pack(fill=X, padx=5, expand=True)
 
+        #####################
         # title
         frame_title = Frame(self)
         frame_title.pack(fill=X)
@@ -149,9 +152,15 @@ class MainWindow(Frame):
         lbl_title = Label(frame_title, text="Title", width=6)
         lbl_title.pack(side=LEFT, padx=5, pady=5)
 
-        self.entry_title = Entry(frame_title)
-        self.entry_title.pack(fill=X, padx=5, expand=True)
+        # self.entry_title = Entry(frame_title)
+        # self.entry_title.pack(fill=X, padx=5, expand=True)
+        self.entry_title = Text(frame_title, wrap=tk.WORD, height=2)
+        scroll_y = tk.Scrollbar(frame_title, orient="vertical", command=self.entry_title.yview)
+        scroll_y.pack(side="right", fill="y")
+        self.entry_title.configure(yscrollcommand=scroll_y.set)
+        self.entry_title.pack(fill=BOTH, side=LEFT, padx=5, expand = True)
 
+        #####################
         # abstract
         frame_abstract = Frame(self)
         frame_abstract.pack(fill=BOTH, expand=True)
@@ -166,10 +175,10 @@ class MainWindow(Frame):
         self.text_abstract.bind("<<TextModified>>", self.onModification)
         
         scroll_y = tk.Scrollbar(frame_abstract, orient="vertical", command=self.text_abstract.yview)
-        scroll_y.pack(side="right", expand=True, fill="y")
+        scroll_y.pack(side="right", fill="y")
         self.text_abstract.configure(yscrollcommand=scroll_y.set)
 
-        self.text_abstract.pack(fill=BOTH, pady=5, padx=5, expand=True)
+        self.text_abstract.pack(fill=BOTH, side=LEFT, pady=5, padx=5, expand=True)
 
 
     def init_buttons(self):
@@ -515,7 +524,3 @@ class MainWindow(Frame):
 
     def get_iterator_options(self):
         return [self.show_only_maybe, self.show_only_include, self.show_only_filtered, self.show_only_not_include, self.show_only_not_mobile_ar, self.show_only_empty]
-
-    
-
-
