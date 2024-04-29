@@ -100,8 +100,8 @@ class Controller:
         _tf_abstract.insert(1.0, abstract)
 
     def set_new_title(self, tmp, _tf_title):
-        _tf_title.delete(0, END)
-        _tf_title.insert(0, tmp[self.key_title])
+        _tf_title.delete(1.0, END)
+        _tf_title.insert(1.0, tmp[self.key_title])
 
     def set_new_lbl_url(self, tmp, _lbl_url):
         _lbl_url.delete(0, END)
