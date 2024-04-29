@@ -236,6 +236,9 @@ class MainWindow(Frame):
         master.bind('<F7>', self.tooglep)
         master.bind('<F8>', self.tooglep)
         master.bind('<F9>', self.tooglep)
+        master.bind('<F10>', self.tooglep)
+        master.bind('<F11>', self.tooglep)
+        master.bind('<F12>', self.tooglep)
 
     def init_exit_prompt(self, event=None):
         result = messagebox.askyesnocancel ('Save?','You want to save your work in the original file (a backup will be created)?',icon = 'question', default='yes')
@@ -295,8 +298,11 @@ class MainWindow(Frame):
         print (str(event) + " go button pressed")
 
         index = (int)(event.keycode)
-        index = index -112 #112 is the keycode for f1
-        if len(self.review_elements_list) >= index:
+        index = index - 112 #112 is the keycode for f1
+        
+        print (len(self.review_elements_list))
+        print (index)
+        if len(self.review_elements_list) > index:
             checkbox = self.review_elements_list[index][2]
             checkbox.toggle()
 
