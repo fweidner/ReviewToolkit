@@ -216,7 +216,17 @@ class MainWindow(Frame):
         master.bind('<Control-plus>', self.increase_fontsize)
         master.bind('<Control-minus>', self.decrease_fontsize)
 
-    def init_exit_prompt(self):
+        master.bind('<F1>', self.tooglep)
+        master.bind('<F2>', self.tooglep)
+        master.bind('<F3>', self.tooglep)
+        master.bind('<F4>', self.tooglep)
+        master.bind('<F5>', self.tooglep)
+        master.bind('<F6>', self.tooglep)
+        master.bind('<F7>', self.tooglep)
+        master.bind('<F8>', self.tooglep)
+        master.bind('<F9>', self.tooglep)
+
+    def init_exit_prompt(self, event=None):
         result = messagebox.askyesnocancel ('Save?','You want to save your work in the original file (a backup will be created)?',icon = 'question', default='yes')
         return self.do_exit(result)
 
@@ -251,6 +261,17 @@ class MainWindow(Frame):
     ############################################
     ### Buttons, keys, shortcuts, and actions ##
     ############################################
+    
+
+    def tooglep(self, event = None):
+        print (str(event) + " go button pressed")
+
+        index = (int)(event.keycode)
+        index = index -112
+        checkbox = self.review_elements_list[index][2]
+        checkbox.toggle()
+
+
     def clickButtonGo(self, event=None):
         print (str(event) + " go button pressed")
         self.do_go()
