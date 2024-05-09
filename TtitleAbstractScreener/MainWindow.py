@@ -117,8 +117,8 @@ class MainWindow(Frame):
         self.iteratorMenu.add_checkbutton(label = "show only not include", onvalue=1, offvalue=0, variable=self.show_only_not_include,
              command=self.set_iterator_menu_status)
 
-        self.show_only_not_mobile_ar = tk.BooleanVar()        
-        self.iteratorMenu.add_checkbutton(label = "show only not population", onvalue=1, offvalue=0, variable=self.show_only_not_mobile_ar,
+        self.show_only_not_population = tk.BooleanVar()        
+        self.iteratorMenu.add_checkbutton(label = "show only not population", onvalue=1, offvalue=0, variable=self.show_only_not_population,
              command=self.set_iterator_menu_status)
 
         self.show_only_empty = tk.BooleanVar()        
@@ -529,4 +529,4 @@ class MainWindow(Frame):
 
 
     def get_iterator_options(self):
-        return [self.show_only_maybe, self.show_only_include, self.show_only_filtered, self.show_only_not_include, self.show_only_not_mobile_ar, self.show_only_empty]
+        return [self.show_only_maybe, self.show_only_include, self.show_only_filtered, self.show_only_not_include, self.show_only_not_population, self.show_only_empty]

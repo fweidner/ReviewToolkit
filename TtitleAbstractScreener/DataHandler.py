@@ -153,52 +153,92 @@ class DataHandler():
         # return self.my_csv_data_list[0]
         return self.my_csv_data.fieldnames
     
+    def get_count_for_var(self, _item, _key, _count):      
+        do = _item[_key]
+        if do != "":
+            if int(float(do)) == 1:
+                _count +=1
+        return _count
+    
     def get_stats(self):
 
         count_include = 0
         count_check_later = 0
-        count_mobile_ar = 0
+        count_population = 0
+        count_intervention = 0
+        count_context = 0 # todo
         count_total = len(self.my_csv_data_list)
         tmp = 0
         with open('config.json', 'r') as json_file:
             json_data = json.load(json_file)
             key_include = json_data['keys']['review_elements']['include']
             key_check_later = json_data['keys']['review_elements']['checklater'].replace(" ", "_")
-            key_mobile_ar = json_data['keys']['review_elements']['population'].replace(" ", "_")
+            key_population = json_data['keys']['review_elements']['population'].replace(" ", "_")
+            key_intervention = json_data['keys']['review_elements']['intervention'].replace(" ", "_")
+            key_context = json_data['keys']['review_elements']['context'].replace(" ", "_")
 
 
             for item in self.my_csv_data_list:
                 tmp += 1
-                print (tmp)
+                # print (tmp)
 
-                do_include = item[key_include]
-                if do_include != "":
-                    if int(float(do_include)) == 1:
-                        count_include +=1
 
-                do_checklater = item[key_check_later]
-                if do_checklater != "":
-                    if int(float(do_checklater)) == 1:
-                        count_check_later += 1
+                count_include = self.get_count_for_var(item, key_include, count_include)
+                count_check_later = self.get_count_for_var(item, key_check_later, count_check_later)
+                count_population = self.get_count_for_var(item, key_population, count_population)
+                count_intervention = self.get_count_for_var(item, key_intervention, count_intervention)
+                count_context = self.get_count_for_var(item, key_context, count_context)
+                
+                # do_include = item[key_include]
+                # if do_include != "":
+                #     if int(float(do_include)) == 1:
+                #         count_include +=1
 
-                do_mobile_ar = item[key_mobile_ar]
-                if do_mobile_ar != "":
-                    if int(float(do_mobile_ar)) == 1:
-                        count_mobile_ar +=1
+                # do_checklater = item[key_check_later]
+                # if do_checklater != "":
+                #     if int(float(do_checklater)) == 1:
+                #         count_check_later += 1
 
-        count_invalid = count_total - count_include - count_check_later
+                # do_population = item[key_population]
+                # if do_population != "":
+                #     if int(float(do_population)) == 1:
+                #         count_population +=1
+
+                # do_intervention = item[key_intervention]
+                # if do_intervention != "":
+                #     if int(float(do_intervention)) == 1:
+                #         count_intervention +=1
+
+                # do_context = item[key_context]
+                # if do_context != "":
+                #     if int(float(do_context)) == 1:
+                #         count_context +=1
+
+        count_invalid = count_total - count_include - count_check_later - count_population - count_context
+        count_done =  count_include + count_check_later + count_population + count_context
 
         print (str(count_total))
-        print (str(count_invalid))
+        print (str(count_done))
         print (str(count_include))
         print (str(count_check_later))
-        print (str(count_mobile_ar))
+        print (str(count_population))
+        print (str(count_intervention))
+        print (str(count_context))
 
-        valuedict = {"count_total": count_total, "count_invalid":count_invalid, "count_include":count_include, "count_check_later":count_check_later}
-        valuelist = [["count_total", count_total], ["count_invalid", count_invalid], ["count_include", count_include], ["count_check_later", count_check_later], ["count_mobile_ar", count_mobile_ar]]
+        valuelist = [["Total", count_total], 
+                     ["Done", count_done], 
+                     ["Include", count_include], 
+                     ["Check_later", count_check_later], 
+                     ["Population", count_population],
+                     ["Intervention", count_intervention],
+                     ["Context", count_context]]
+        
+
         #print (str(valuedict))
 
         return valuelist
+
+
 
     def get_all_includes(self):
 

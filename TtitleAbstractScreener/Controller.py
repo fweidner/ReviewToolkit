@@ -244,7 +244,7 @@ class Controller:
         #    label.pack(side=LEFT)
 
         frame_table = Frame(_stats_window)
-        frame_table.pack(side=LEFT, padx=5)
+        frame_table.pack(side=LEFT, expand=True, padx=5)
   
 
         width = 2
@@ -293,7 +293,7 @@ class Controller:
         show_only_include = _iterator_options[1].get()
         show_only_filtered = _iterator_options[2].get()
         show_only_not_include = _iterator_options[3].get()
-        show_only_not_mobile_ar = _iterator_options[4].get()
+        show_only_not_population = _iterator_options[4].get()
         show_only_empty = _iterator_options[5].get()
 
         b_need_new_item = True
@@ -310,7 +310,7 @@ class Controller:
                 json_data = json.load(json_file)
                 key_include = json_data['keys']['review_elements']['include']
                 key_maybe = json_data['keys']['review_elements']['checklater']
-                key_mobile_ar = json_data['keys']['review_elements']['population']
+                key_population = json_data['keys']['review_elements']['population']
                 key_intervention = json_data['keys']['review_elements']['intervention']
                 key_comparison = json_data['keys']['review_elements']['comparison']
                 key_context = json_data['keys']['review_elements']['context']
@@ -319,7 +319,7 @@ class Controller:
                 
             # init our bool values that actually indicate if an item (tmp) is tagged with maybe or include
             b_is_include = bool(int(float(tmp[key_include])))
-            b_is_mobile_ar = bool(int(float(tmp[key_mobile_ar])))
+            b_is_population = bool(int(float(tmp[key_population])))
             b_is_intervention = bool(int(float(tmp[key_intervention])))
             b_is_comparison = bool(int(float(tmp[key_comparison])))
             b_is_context = bool(int(float(tmp[key_context])))
@@ -337,10 +337,10 @@ class Controller:
                 b_need_new_item = True
             if not b_need_new_item and show_only_filtered and not b_is_as_filter:
                 b_need_new_item = True
-            if not b_need_new_item and show_only_not_mobile_ar and not b_is_mobile_ar:
+            if not b_need_new_item and show_only_not_population and not b_is_population:
                 b_need_new_item = True
             if not b_need_new_item and show_only_empty:
-                if b_is_mobile_ar or b_is_outcomes or b_is_intervention or b_is_comparison or b_is_context or b_is_include or b_is_maybe:
+                if b_is_population or b_is_outcomes or b_is_intervention or b_is_comparison or b_is_context or b_is_include or b_is_maybe:
                     b_need_new_item = True
                
             n = n + 1
