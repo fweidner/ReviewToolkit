@@ -25,13 +25,13 @@
             },
         "review_elements_desc":
             {
-                "population":"P:Ubicomp/IoT/MR; no dedicated device, no controller, no actuators, sensors ok (for now)",
-                "intervention":"I: technology/theory/authoring/technique; no encyrption/privacy, network/transmission/cloud, real-time comms",
+                "population":"P: is not EO; is not Ubicomp/IoT/MR; is dedicated device, is controller, is actuators, is about sensors dev, pure IoT",
+                "intervention":"I: is not technology/theory/authoring/technique; is encyrption/privacy/network/transmission/cloud, real-time comms",
                 "comparison":"C: any",
                 "outcomes":"O: any",
-                "context": "C: peer-reviewed, englihs, ba/ma thesis",
+                "context": "C: peer-reviewed, english, no paper, ba/ma thesis",
                 "checklater":"Check later",
-                "include":"Include",
+                "include":"Include (also: only augmentation; fabrication for Ubicomp-ready EO; design with EO; marker-only (if proxy); projection-only)",
 				"backtracking":"Backtracking only"
             }
     },
@@ -40,7 +40,7 @@
         "width":"1024",
         "height":"768"
     },
-    "searchTerm":"pointing",
+    "searchTerm":"download",
     "percentage_of_items_to_export":"20",
     "file_for_irr":"../Scraping/Final_selection_for_IRR.csv",
     "filename_with_includes":"Includes.csv",
