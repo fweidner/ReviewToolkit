@@ -59,4 +59,7 @@ if __name__ == '__main__':
 # TODO [x] make doi editable
 # TODO [x] make title larger (scales)
 # TODO [ ] speed when searching (add better filtering)
-
+# TODO [ ] Auto open URL
+# TODO [ ] User ID management
+# TODO [ ] Porper search field.
+# TODO [ ] Customizable Keyboard shortcuts
