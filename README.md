@@ -1,13 +1,15 @@
+
+![image](https://github.com/fweidner/ReviewToolkit/assets/16336130/354731ce-2f87-4998-9257-395207ea4db1)
+
+
 # ReviewToolkit
 
-This repository contains a simple tool that eases the process of paper scanning when doing a literature review.
+This repository contains a simple tool that eases the paper scanning process when doing a systematic literature review.
 
-Contains two main projects:
+It contains two main projects:
 
-* scripts to scrape ACM and IEEE with scripts to prepare for the title and abstract scanner (this is more a helper project. 
-* python app to analyze the papers ==> This is really the main project. 
-
-(three-day project, don't come at me pls)
+* Scraping: scripts to scrape ACM and IEEE with scripts to prepare for the title and abstract scanner (this is more a helper project. 
+* TitleAbstractScreener: python app to analyze the papers ==> This is really the main project. 
 
 1. If you download a release, it shows you how the tool works (it loads data.csv with the options specified in config.json)
 2. Check help when it is running for keyboard shortcuts.
