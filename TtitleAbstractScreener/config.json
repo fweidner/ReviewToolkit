@@ -29,10 +29,10 @@
                 "intervention":"I: is not technology/theory/authoring/technique; is encyrption/privacy/network/transmission/cloud, real-time comms",
                 "comparison":"C: any",
                 "outcomes":"O: any",
-                "context": "C: peer-reviewed, english, no paper, ba/ma thesis",
+                "context": "C: peer-reviewed, english, no paper, ba/ma thesis, proposal/DC",
                 "checklater":"Check later",
-                "include":"Include (also: only augmentation; fabrication for Ubicomp-ready EO; design with EO; marker-only (if proxy); projection-only)",
-				"backtracking":"Backtracking only"
+                "include":"Include (also: only augmentation; fabrication for Ubicomp-ready EO; design with EO; marker-only (if explicit proxy); projection-only)",
+				"backtracking":"Backtracking only or otherwise helpful"
             }
     },
     "windowsize":
@@ -40,7 +40,7 @@
         "width":"1024",
         "height":"768"
     },
-    "searchTerm":"download",
+    "searchTerm":"++",
     "percentage_of_items_to_export":"20",
     "file_for_irr":"../Scraping/Final_selection_for_IRR.csv",
     "filename_with_includes":"Includes.csv",
