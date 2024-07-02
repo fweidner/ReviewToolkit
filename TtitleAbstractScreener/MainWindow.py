@@ -101,6 +101,9 @@ class MainWindow(Frame):
         self.iteratorMenu = Menu(menu, tearoff=False)
         menu.add_cascade(label="Iterator", menu=self.iteratorMenu)     
 
+
+
+                
         self.show_only_maybe = tk.BooleanVar()
         self.iteratorMenu.add_checkbutton(label = "show only maybe", onvalue=1, offvalue=0, variable=self.show_only_maybe,
              command=self.set_iterator_menu_status)
@@ -124,6 +127,40 @@ class MainWindow(Frame):
         self.show_only_empty = tk.BooleanVar()        
         self.iteratorMenu.add_checkbutton(label = "Show only empty", onvalue=1, offvalue=0, variable=self.show_only_empty,
              command=self.set_iterator_menu_status)
+        
+        ###################### VERY MUCH WIP BuT IT'S GONNA
+
+        # self.iteratorMenu.add_separator()
+
+        # with open('config.json', 'r') as json_file:
+        #     json_data = json.load(json_file)
+        #     review_elements_from_json = json_data['keys']['review_elements']
+        #     self.iterator_menu_variables = []
+        #     for item in review_elements_from_json:
+        #         #print (str(item) +  " - " + str(review_elements_from_json[item]))
+        #         tmp = (review_elements_from_json[item])
+        #         str = "show only " + tmp
+        #         self.iterator_menu_variables.append(tk.BooleanVar(name=tmp))
+        #         len_it_menu = len(self.iterator_menu_variables)
+        #         self.iteratorMenu.add_checkbutton(label = str, onvalue=1, offvalue=0, variable=self.iterator_menu_variables[len_it_menu-1],
+        #             command=self.set_iterator_menu_status)
+                
+
+        # for i in range(self.iteratorMenu.index('end') + 1):
+        #     item_type = self.iteratorMenu.type(i)
+        #     if item_type == "checkbutton":
+        #         print(f"Index {i}: {self.iteratorMenu.entrycget(i, 'variable')}")
+                
+        #         value = self.iteratorMenu.entrycget(i, 'variable')
+        #         print (value)
+                
+        #         # state = value[0].get()
+        #         print(self.iterator_menu_variables[i].get())
+            
+        #     elif item_type == "separator":
+        #         print(f"Index {i}: separator")
+
+        ###################### END WIP
 
         # about pane
         aboutMenu = Menu(menu, tearoff=False)

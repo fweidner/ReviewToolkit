@@ -63,3 +63,4 @@ if __name__ == '__main__':
 # TODO [ ] User ID management
 # TODO [ ] Porper search field.
 # TODO [ ] Customizable Keyboard shortcuts
+# TODO [ ] Filter ignore everything after include
