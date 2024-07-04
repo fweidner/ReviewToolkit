@@ -71,11 +71,11 @@ class Controller:
 
             print(error_message)
 
-
             messagebox.showerror("Error", error_message)#HACK that's not very controller-ish
 
     def set_row_index_count_string(self, _stringvar):
         res = self.get_row_index_count_string()
+        #print ("Row Index Count = " + str(res))
         _stringvar.set(res)
 
     def get_row_index_count_string(self):        
@@ -280,87 +280,65 @@ class Controller:
             return True
             #print("term found")
 
-    #TODO refactor this as it is a messy dump of spaghetti!
     def get_next_or_prev_per_condition(self, _b_is_prev = False, _iterator_options=[]):
-    
-
         current_index = self.my_data_handler.get_row_index()
         current_item = self.my_data_handler.get_specific_item(current_index)
         N = self.get_count()
         n = 0
 
-        show_only_population = _iterator_options[0].get()
-        show_only_intervention= _iterator_options[1].get()
-        show_only_comparison= _iterator_options[2].get()
-        show_only_outcome= _iterator_options[3].get()
-        show_only_context= _iterator_options[4].get()
-        show_only_maybe= _iterator_options[5].get()
-        show_only_include= _iterator_options[6].get()
+        filters = []
+        filters.append(_iterator_options[1].get())
+        filters.append(_iterator_options[0].get())
+        filters.append(_iterator_options[2].get())
+        filters.append(_iterator_options[3].get())
+        filters.append(_iterator_options[4].get())
+        filters.append(_iterator_options[5].get())
+        filters.append(_iterator_options[6].get())
         show_only_filtered= _iterator_options[7].get()
         show_only_empty= _iterator_options[8].get()
 
-        filters = []
-        filters.append(show_only_population)
-        filters.append(show_only_intervention)
-        filters.append(show_only_comparison)
-        filters.append(show_only_outcome)
-        filters.append(show_only_context)
-        filters.append(show_only_maybe)
-        filters.append(show_only_include)
-
+        # get our keys that we use in the csv file (basically the column names)
+        with open('config.json', 'r') as json_file:
+            json_data = json.load(json_file)
+            key_include = json_data['keys']['review_elements']['include']
+            key_maybe = json_data['keys']['review_elements']['checklater']
+            key_population = json_data['keys']['review_elements']['population']
+            key_intervention = json_data['keys']['review_elements']['intervention']
+            key_comparison = json_data['keys']['review_elements']['comparison']
+            key_context = json_data['keys']['review_elements']['context']
+            key_outcomes = json_data['keys']['review_elements']['outcomes']
 
         b_need_new_item = True
 
-
-        
         while (b_need_new_item):
             b_need_new_item = False
             current_states = []
 
             # get an initial item that we can check 
+            pre_row_index = self.my_data_handler.get_row_index()
             tmp = self.get_new_item(_b_is_prev)
-            
-            # get our keys that we use in the csv file (basically the column names)
-            with open('config.json', 'r') as json_file:
-                json_data = json.load(json_file)
-                key_include = json_data['keys']['review_elements']['include']
-                key_maybe = json_data['keys']['review_elements']['checklater']
-                key_population = json_data['keys']['review_elements']['population']
-                key_intervention = json_data['keys']['review_elements']['intervention']
-                key_comparison = json_data['keys']['review_elements']['comparison']
-                key_context = json_data['keys']['review_elements']['context']
-                key_outcomes = json_data['keys']['review_elements']['outcomes']
-                
-            b_is_include = bool(int(tmp[key_include]))
-            b_is_population = bool(int(tmp[key_population]))
-            b_is_intervention = bool(int(tmp[key_intervention]))
-            b_is_comparison = bool(int(tmp[key_comparison]))
-            b_is_context = bool(int(tmp[key_context]))
-            b_is_maybe = bool(int(tmp[key_maybe]))
-            b_is_outcomes = bool(int(tmp[key_outcomes]))
-            
-            current_states.append(b_is_population)
-            current_states.append(b_is_intervention)
-            current_states.append(b_is_comparison)
-            current_states.append(b_is_outcomes)
-            current_states.append(b_is_context)
-            current_states.append(b_is_maybe)
-            current_states.append(b_is_include)
+                            
+            current_states.append(bool(int(tmp[key_include])))
+            current_states.append(bool(int(tmp[key_population])))
+            current_states.append(bool(int(tmp[key_intervention])))
+            current_states.append(bool(int(tmp[key_comparison])))
+            current_states.append(bool(int(tmp[key_context])))
+            current_states.append(bool(int(tmp[key_maybe])))
+            current_states.append(bool(int(tmp[key_outcomes])))          
 
             # PICOC-M-I
             if any(filters): #if a filter is turned on
-                comparison = [a & b for a, b in zip(filters, current_states)] # if a item matches a filter
-                b_need_new_item = not any(comparison) # no new item if item matches a filter
+                b_need_new_item = not any([a & b for a, b in zip(filters, current_states)]) # no new item if item matches a filter
             else:
                 b_need_new_item = False
-               
-            # current item which matches a filter corresponds to search term
-            if not b_need_new_item and show_only_filtered:
-                b_need_new_item = not self.search(tmp) # search returns true if search term in item; if true, no new item
                
             # current item is empty?
             if show_only_empty and any(current_states):
                 b_need_new_item = True
+
+            # current item which matches a filter corresponds to search term
+            if not b_need_new_item and show_only_filtered:
+                b_need_new_item = not self.search(tmp) # search returns true if search term in item; if true, no new item
 
             n = n + 1
             if n > N:

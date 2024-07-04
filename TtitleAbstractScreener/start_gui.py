@@ -52,15 +52,16 @@ if __name__ == '__main__':
 # TODO [x] fix filter system
 # TODO [x] change labels in filters
 # TODO [x] add filter for check_later
-# TODO [ ] Add context menu
-# TODO [ ] clean up MainWindow.py - it started good but than it just got wild
-# TODO [x] add 1-5 keys to review-element checkboxes
-# TODO [ ] make bullet points fully dynamic (also in controller and datahandler)
 # TODO [x] make doi editable
 # TODO [x] make title larger (scales)
-# TODO [ ] speed when searching (add better filtering)
-# TODO [ ] Auto open URL
+# TODO [x] add 1-5 keys to review-element checkboxes ==> F-Keys
+# TODO [ ] Add context menu
+# TODO [ ] clean up MainWindow.py - it started good but than it just got wild
+# TODO [ ] make bullet points fully dynamic (also in controller and datahandler)
+# TODO [ ] speed when searching; optimize while loop
+# TODO [ ] Dynamic filters based on json
+# TODO [ ] Auto open URL checkbox in settings. 
 # TODO [ ] User ID management
 # TODO [ ] Porper search field.
 # TODO [ ] Customizable Keyboard shortcuts
-# TODO [ ] Filter ignore everything after include
+
