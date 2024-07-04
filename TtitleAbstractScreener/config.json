@@ -25,14 +25,14 @@
             },
         "review_elements_desc":
             {
-                "population":"P: is not EO; is not Ubicomp/IoT/MR; is dedicated device, is controller, is actuators, is about sensors dev, pure IoT",
-                "intervention":"I: is not technology/theory/authoring/technique; is encyrption/privacy/network/transmission/cloud, real-time comms",
+                "population":"P: is not Ubicomp/IoT/MR; is not an interactive system; is robot",
+                "intervention":"I: Is not EO",
                 "comparison":"C: any",
                 "outcomes":"O: any",
                 "context": "C: peer-reviewed, english, no paper, ba/ma thesis, proposal/DC",
-                "checklater":"Check later",
-                "include":"Include (also: only augmentation; fabrication for Ubicomp-ready EO; design with EO; marker-only (if explicit proxy); projection-only)",
-				"backtracking":"Backtracking only or otherwise helpful"
+                "checklater":"Maybe",
+                "include":"Include",
+				"backtracking":"Backtracking or otherwise helpful"
             }
     },
     "windowsize":
@@ -40,7 +40,7 @@
         "width":"1024",
         "height":"768"
     },
-    "searchTerm":"++",
+    "searchTerm":"exhibit",
     "percentage_of_items_to_export":"20",
     "file_for_irr":"../Scraping/Final_selection_for_IRR.csv",
     "filename_with_includes":"Includes.csv",
