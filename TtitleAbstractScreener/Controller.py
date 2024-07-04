@@ -343,6 +343,7 @@ class Controller:
             n = n + 1
             if n > N:
                 self.alert("Warning", "No item found", "warning")
+                self.my_data_handler.reset_row_index(pre_row_index) #we increased it by one when calling get_new_item
                 return current_item
         
         return tmp

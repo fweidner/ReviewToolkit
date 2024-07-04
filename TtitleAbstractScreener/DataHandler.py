@@ -57,6 +57,9 @@ class DataHandler():
     def get_row_index(self):
         return self.row_index
     
+    def reset_row_index(self, _new_index):
+        self.row_index = _new_index
+    
     def update_current_item_in_file(self, _abstract, _title, _review_elements_list, _tf_year, _tf_doi):
         if self.row_index == -1: # we do this because it otherwise overwrites the log
             return
