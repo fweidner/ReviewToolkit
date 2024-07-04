@@ -289,18 +289,33 @@ class Controller:
         N = self.get_count()
         n = 0
 
-        show_only_maybe = _iterator_options[0].get()
-        show_only_include = _iterator_options[1].get()
-        show_only_filtered = _iterator_options[2].get()
-        show_only_not_include = _iterator_options[3].get()
-        show_only_not_population = _iterator_options[4].get()
-        show_only_empty = _iterator_options[5].get()
+        show_only_population = _iterator_options[0].get()
+        show_only_intervention= _iterator_options[1].get()
+        show_only_comparison= _iterator_options[2].get()
+        show_only_outcome= _iterator_options[3].get()
+        show_only_context= _iterator_options[4].get()
+        show_only_maybe= _iterator_options[5].get()
+        show_only_include= _iterator_options[6].get()
+        show_only_filtered= _iterator_options[7].get()
+        show_only_empty= _iterator_options[8].get()
+
+        filters = []
+        filters.append(show_only_population)
+        filters.append(show_only_intervention)
+        filters.append(show_only_comparison)
+        filters.append(show_only_outcome)
+        filters.append(show_only_context)
+        filters.append(show_only_maybe)
+        filters.append(show_only_include)
+
 
         b_need_new_item = True
 
+
+        
         while (b_need_new_item):
-            #print("get item # " + str(self.my_data_handler.get_row_index()))
             b_need_new_item = False
+            current_states = []
 
             # get an initial item that we can check 
             tmp = self.get_new_item(_b_is_prev)
@@ -315,34 +330,38 @@ class Controller:
                 key_comparison = json_data['keys']['review_elements']['comparison']
                 key_context = json_data['keys']['review_elements']['context']
                 key_outcomes = json_data['keys']['review_elements']['outcomes']
-                #if you add more than picoc, use them here.
                 
-            # init our bool values that actually indicate if an item (tmp) is tagged with maybe or include
-            b_is_include = bool(int(float(tmp[key_include])))
-            b_is_population = bool(int(float(tmp[key_population])))
-            b_is_intervention = bool(int(float(tmp[key_intervention])))
-            b_is_comparison = bool(int(float(tmp[key_comparison])))
-            b_is_context = bool(int(float(tmp[key_context])))
-            b_is_maybe = bool(int(float(tmp[key_maybe])))
-            b_is_outcomes = bool(int(float(tmp[key_outcomes])))
+            b_is_include = bool(int(tmp[key_include]))
+            b_is_population = bool(int(tmp[key_population]))
+            b_is_intervention = bool(int(tmp[key_intervention]))
+            b_is_comparison = bool(int(tmp[key_comparison]))
+            b_is_context = bool(int(tmp[key_context]))
+            b_is_maybe = bool(int(tmp[key_maybe]))
+            b_is_outcomes = bool(int(tmp[key_outcomes]))
             
-            b_is_as_filter = self.search(tmp) 
+            current_states.append(b_is_population)
+            current_states.append(b_is_intervention)
+            current_states.append(b_is_comparison)
+            current_states.append(b_is_outcomes)
+            current_states.append(b_is_context)
+            current_states.append(b_is_maybe)
+            current_states.append(b_is_include)
 
-            # set the bool values so that we can determine which filter we apply
-            if show_only_maybe and not b_is_maybe:
-                b_need_new_item = True
-            if show_only_include and not b_is_include:
-                b_need_new_item = True
-            if not b_need_new_item and show_only_not_include and b_is_include:
-                b_need_new_item = True
-            if not b_need_new_item and show_only_filtered and not b_is_as_filter:
-                b_need_new_item = True
-            if not b_need_new_item and show_only_not_population and not b_is_population:
-                b_need_new_item = True
-            if not b_need_new_item and show_only_empty:
-                if b_is_population or b_is_outcomes or b_is_intervention or b_is_comparison or b_is_context or b_is_include or b_is_maybe:
-                    b_need_new_item = True
+            # PICOC-M-I
+            if any(filters): #if a filter is turned on
+                comparison = [a & b for a, b in zip(filters, current_states)] # if a item matches a filter
+                b_need_new_item = not any(comparison) # no new item if item matches a filter
+            else:
+                b_need_new_item = False
                
+            # current item which matches a filter corresponds to search term
+            if not b_need_new_item and show_only_filtered:
+                b_need_new_item = not self.search(tmp) # search returns true if search term in item; if true, no new item
+               
+            # current item is empty?
+            if show_only_empty and any(current_states):
+                b_need_new_item = True
+
             n = n + 1
             if n > N:
                 self.alert("Warning", "No item found", "warning")
@@ -350,9 +369,7 @@ class Controller:
         
         return tmp
 
-
 ############################################################################################
-
 
     def export_items_to_csv(self):
         print("export items")

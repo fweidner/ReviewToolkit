@@ -103,29 +103,42 @@ class MainWindow(Frame):
 
 
 
-                
-        self.show_only_maybe = tk.BooleanVar()
-        self.iteratorMenu.add_checkbutton(label = "show only maybe", onvalue=1, offvalue=0, variable=self.show_only_maybe,
+        self.show_only_population = tk.BooleanVar()
+        self.iteratorMenu.add_checkbutton(label = "show population", onvalue=1, offvalue=0, variable=self.show_only_population,
              command=self.set_iterator_menu_status)
 
+        self.show_only_intervention = tk.BooleanVar()
+        self.iteratorMenu.add_checkbutton(label = "show intervention", onvalue=1, offvalue=0, variable=self.show_only_intervention,
+             command=self.set_iterator_menu_status)
+        
+        self.show_only_comparison = tk.BooleanVar()
+        self.iteratorMenu.add_checkbutton(label = "show comparison", onvalue=1, offvalue=0, variable=self.show_only_comparison,
+             command=self.set_iterator_menu_status)
+        
+        self.show_only_outcome = tk.BooleanVar()
+        self.iteratorMenu.add_checkbutton(label = "show outcome", onvalue=1, offvalue=0, variable=self.show_only_outcome,
+             command=self.set_iterator_menu_status)
+        
+        self.show_only_context = tk.BooleanVar()
+        self.iteratorMenu.add_checkbutton(label = "show context", onvalue=1, offvalue=0, variable=self.show_only_context,
+             command=self.set_iterator_menu_status)
+                
+        self.show_only_maybe = tk.BooleanVar()
+        self.iteratorMenu.add_checkbutton(label = "show maybe", onvalue=1, offvalue=0, variable=self.show_only_maybe,
+             command=self.set_iterator_menu_status)
+
+        self.iteratorMenu.add_separator()
+
         self.show_only_include = tk.BooleanVar()
-        self.iteratorMenu.add_checkbutton(label = "show only include", onvalue=1, offvalue=0, variable=self.show_only_include,
+        self.iteratorMenu.add_checkbutton(label = "show include", onvalue=1, offvalue=0, variable=self.show_only_include,
              command=self.set_iterator_menu_status)
 
         self.show_only_filtered = tk.BooleanVar()
-        self.iteratorMenu.add_checkbutton(label = "show only search", onvalue=1, offvalue=0, variable=self.show_only_filtered,
-             command=self.set_iterator_menu_status)
-
-        self.show_only_not_include = tk.BooleanVar()
-        self.iteratorMenu.add_checkbutton(label = "show only not include", onvalue=1, offvalue=0, variable=self.show_only_not_include,
-             command=self.set_iterator_menu_status)
-
-        self.show_only_not_population = tk.BooleanVar()        
-        self.iteratorMenu.add_checkbutton(label = "show only not population", onvalue=1, offvalue=0, variable=self.show_only_not_population,
+        self.iteratorMenu.add_checkbutton(label = "show search", onvalue=1, offvalue=0, variable=self.show_only_filtered,
              command=self.set_iterator_menu_status)
 
         self.show_only_empty = tk.BooleanVar()        
-        self.iteratorMenu.add_checkbutton(label = "Show only empty", onvalue=1, offvalue=0, variable=self.show_only_empty,
+        self.iteratorMenu.add_checkbutton(label = "Show only non-PICOC-M-I", onvalue=1, offvalue=0, variable=self.show_only_empty,
              command=self.set_iterator_menu_status)
         
         ###################### VERY MUCH WIP BuT IT'S GONNA
@@ -566,4 +579,14 @@ class MainWindow(Frame):
 
 
     def get_iterator_options(self):
-        return [self.show_only_maybe, self.show_only_include, self.show_only_filtered, self.show_only_not_include, self.show_only_not_population, self.show_only_empty]
+        array = []
+        array.append(self.show_only_population)
+        array.append(self.show_only_intervention)
+        array.append(self.show_only_comparison)
+        array.append(self.show_only_outcome)
+        array.append(self.show_only_context)
+        array.append(self.show_only_maybe)
+        array.append(self.show_only_include)
+        array.append(self.show_only_filtered)
+        array.append(self.show_only_empty)
+        return array
