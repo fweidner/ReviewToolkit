@@ -318,13 +318,14 @@ class Controller:
             pre_row_index = self.my_data_handler.get_row_index()
             tmp = self.get_new_item(_b_is_prev)
                             
-            current_states.append(bool(int(tmp[key_include])))
             current_states.append(bool(int(tmp[key_population])))
             current_states.append(bool(int(tmp[key_intervention])))
             current_states.append(bool(int(tmp[key_comparison])))
+            current_states.append(bool(int(tmp[key_outcomes])))          
             current_states.append(bool(int(tmp[key_context])))
             current_states.append(bool(int(tmp[key_maybe])))
-            current_states.append(bool(int(tmp[key_outcomes])))          
+            current_states.append(bool(int(tmp[key_include])))
+            
 
             # PICOC-M-I
             if any(filters): #if a filter is turned on

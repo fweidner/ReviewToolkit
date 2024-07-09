@@ -25,7 +25,7 @@
             },
         "review_elements_desc":
             {
-                "population":"P: is not Ubicomp/IoT/MR; is not an interactive system; is robot",
+                "population":"P: is not Ubicomp/IoT/MR; is not an interactive system; is robot; no tangibles",
                 "intervention":"I: Is not EO",
                 "comparison":"C: any",
                 "outcomes":"O: any",
@@ -40,7 +40,7 @@
         "width":"1024",
         "height":"768"
     },
-    "searchTerm":"exhibit",
+    "searchTerm":"exkjhjlkjhibit",
     "percentage_of_items_to_export":"20",
     "file_for_irr":"../Scraping/Final_selection_for_IRR.csv",
     "filename_with_includes":"Includes.csv",
