@@ -65,3 +65,5 @@ if __name__ == '__main__':
 # TODO [ ] Porper search field.
 # TODO [ ] Customizable Keyboard shortcuts
 # BUG [x] Somehow include is not properly excluded when first four are active
+# BUG [ ] Details get only updated after next/prev - not a prob for all except doi!
+# TODO [ ] IF 0000, then open duckduckgo search

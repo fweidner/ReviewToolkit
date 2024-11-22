@@ -3,8 +3,9 @@
     "input_file":"./Input/20240429-170224-Results.csv-converted.csv",
     "tmp_input_file":"output.csv",
     "tmp_file":"data_tmp.csv",
-    "browser":"C:/Program Files/Google/Chrome/Application/chrome.exe",
+    "browser_tmp2":"C:/Program Files/Google/Chrome/Application/chrome.exe",
     "browser_tmp3":"C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
+    "browser":"C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe",
     "delimiter":";",
     "keys":
     {
@@ -26,10 +27,10 @@
         "review_elements_desc":
             {
                 "population":"P: is not Ubicomp/IoT/MR; is not an interactive system; is robot; no tangibles",
-                "intervention":"I: Is not EO",
+                "intervention":"I: Is not EO (primary purpose not UI, not repurposed)",
                 "comparison":"C: any",
                 "outcomes":"O: any",
-                "context": "C: peer-reviewed, english, no paper, ba/ma thesis, proposal/DC",
+                "context": "C: not peer-reviewed, not english, no paper, ba/ma thesis, proposal/DC",
                 "checklater":"Maybe",
                 "include":"Include",
 				"backtracking":"Backtracking or otherwise helpful"
@@ -40,9 +41,9 @@
         "width":"1024",
         "height":"768"
     },
-    "searchTerm":"exkjhjlkjhibit",
+    "searchTerm":"tangible bit",
     "percentage_of_items_to_export":"20",
     "file_for_irr":"../Scraping/Final_selection_for_IRR.csv",
     "filename_with_includes":"Includes.csv",
-    "filepath_with_includes":"../Results/Paper/"
+    "filepath_with_includes":"./"
 }
